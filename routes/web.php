@@ -17,7 +17,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('about', function () {
-    return "<h3>Peek a booo</h3>";
+
+    $passing_data = "hello normies";
+    return view('beranda', compact('passing_data'));
+
+});
+
+Route::get('home', function ()
+
+{
+
+    return view('home');
 
 });
 
