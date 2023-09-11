@@ -30,22 +30,16 @@
 
         <div class="row">
 
-
-            @foreach ( $blogs as $blog )
-
-
-
-
-
-            @if ($blog['status'] == 0)
-
-
+{{--
+            @foreach ( $users as $user )
+            @if ($user['id'] <= 5)
 
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <h4>{{$blog['title']}}</h4>
-                        <p>{{$blog['body']}}</p>
+                        <h4>{{$user['name']}}</h4>
+                        <p>{{$user['email']}}</p>
+                        <p>{{ $user->Address->address }}</p>
 
                     </div>
                 </div>
@@ -55,22 +49,55 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <h4>{{$blog['title']}}</h4>
-                        <p>{{$blog['body']}}</p>
+                        <h4>{{$user['name']}}</h4>
+                        <p>{{$user['email']}}</p>
+                        <p>{{ $user->Address->address }}</p>
                         <div class="btn-sm btn-warning">Pending</div>
 
                     </div>
                 </div>
             </div>
 
-
             @endif
-
             @endforeach
+
+            --}}
+
+
+
+            @foreach ( $addresses as $address )
+            @if ($address['id'] <= 5)
+
+            <div class="col-md-4">
+                <div class="card">
+            <div class="card-body">
+                <h4>{{$address->user->name}}</h4>
+                <p>{{$address->user->email}}</p>
+                <p>{{ $address->address }}</p>
+
+            </div>
+        </div>
+    </div>
+    @else
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h4>{{$address->user->name}}</h4>
+                <p>{{$address->user->email}}</p>
+                <p>{{ $address->address }}</p>
+                <div class="btn-sm btn-warning">Pending</div>
+
+            </div>
+        </div>
+    </div>
+
+    @endif
+    @endforeach
+
+
         </div>
     </main>
-
-
 
 
     <footer>

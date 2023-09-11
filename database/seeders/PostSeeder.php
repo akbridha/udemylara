@@ -17,14 +17,22 @@ class PostSeeder extends Seeder
     {
         //
         $jumlah_data = 10;
+        $iterasiKategori = 0 ;
         for($i = 1; $i <=$jumlah_data; $i++)  {
+           if($iterasiKategori == 4)
+          { $iterasiKategori=1;  }
+          else
+          {$iterasiKategori = $iterasiKategori +1 ;}
+
+
+
             $randomNumber = mt_rand(100, 260);
           DB::table('posts')->insert([
             'title' => Str::random(20),
             'description' => Str::random(140),
             'status' => 1,
             'publish_date' => date('Y-m-d'),
-            'category_id' =>  1,
+            'category_id' =>  $iterasiKategori,
             'user_id' =>  1,
             'views' => (string)$randomNumber
 
