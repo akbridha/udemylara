@@ -96,6 +96,6 @@ class HomeController extends Controller
                     // $post->tags()->attach($tag);
                     // return $posts;
 
-                    return view('layouts.post', compact('posts'));
+                   return "ini home COntroller";
                 }
             }
