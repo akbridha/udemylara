@@ -29,20 +29,31 @@
                 </thead>
                 <tbody>
                     <tr>
-                        {{-- @foreach ( as ) --}}
-                        <th scope="row">#</th>
-                        <td>
-                            <img src="" alt="gambar barang" width="90">
-                        </td>
-                        <td>Title</td>
-                        <td>Description</td>
-                        <td>Category</td>
-                        <td>Publish Date</td>
-                        <td>
-                            <a class="btn-sm btn-primary" a href="posts/1/edit">Edit</a>
-                            <a class="btn-sm btn-danger" a href="">Delete</a>
-                        </td>
-                        {{-- @endforeach --}}
+                        @foreach ( $posts as $post )
+                        <tr>
+                            <th scope="row">{{ $post->id }}</th>
+                            <td>
+                                <img src="{{ asset($post->image) }}" alt="gambar barang" width="90">
+
+                            </td>
+                            <td>{{ $post->title }}</td>
+                            <td>{{ $post->description }}</td>
+                            <td>{{ $post->category->name }}</td>
+                            <td>{{ date('d-m-Y', strtotime($post->created_at)) }}</td>
+                            <td>
+                                <div class="d-flex">
+
+                                    <a class="btn-sm btn-success" a href="{{ route('posts.restore', $post->id) }}">Restore</a>
+
+                                    <form action="{{ route('posts.force_delete', $post->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn-sm btn-danger btn">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
                     </tr>
                 </tbody>
             </table>
