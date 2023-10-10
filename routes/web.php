@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,3 +40,10 @@ Route::delete('/posts/{id}/force-delete',[PostController::class, 'forceDelete'])
 Route::get('/unavailable', function(){
     return view('layouts.unavailable');
 })->name('unavailable');
+
+
+Route::get('contact', function(){
+
+    $posts = Post::all();
+    return view('layouts.contact', compact('posts'));
+});

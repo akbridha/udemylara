@@ -25,8 +25,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('posts.index') }}">Post</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true">
                             Dropdown
                         </a>
                         <ul class="dropdown-menu">
