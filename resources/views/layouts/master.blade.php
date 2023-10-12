@@ -10,7 +10,7 @@
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand" href="/get-session">Session</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -29,8 +29,8 @@
                         <a class="nav-link" href="/contact">Contact</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true">
-                            Dropdown
+                        <a class="nav-link dropdown-toggle" href="/send-email" role="button" data-bs-toggle="" aria-expanded="true">
+                            Gidewn
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Action</a></li>

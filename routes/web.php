@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Mail\OrderShipped;
 use App\Models\Post;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,4 +49,44 @@ Route::get('contact', function(){
 
     $posts = Post::all();
     return view('layouts.contact', compact('posts'));
+});
+
+Route::get('send-email', function () {
+    // Mail::raw('Pampam parepam parararampang papipipam', function ($message) {
+    //     $message->to('john@johndoe.com')->subject('noreply');
+    // });
+    Mail::send(new OrderShipped);
+    dd('success');
+});
+
+Route::get('get-session', function (Request $request) {
+    $data = session()->all();
+    // $data = session()->get('nama');
+
+    dd($data);
+
+});
+
+Route::get('save-session', function (Request $request) {
+
+    // $request->session()->put('nama','panjulll');
+    $request->session()->put(['nama'=>'panjulll', 'wilayah'=>'kreta' ]);
+    session(['kaiser'=>'lucretius']);
+    return redirect('get-session');
+});
+
+
+Route::get('delete-session', function (Request $request) {
+    // $request->session()->forget(['kaiser','wilayah']);
+    session()->flush();
+    return redirect('get-session');
+
+});
+
+Route::get('flash-session', function (Request $request) {
+
+    $request->session()->flash('Login', 'ora');
+
+    return redirect('get-session');
+
 });
