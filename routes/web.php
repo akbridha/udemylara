@@ -1,10 +1,9 @@
 <?php
 
 use App\Http\Controllers\PostController;
-use App\Mail\OrderShipped;
+use App\Http\Controllers\ProfileController;
 use App\Models\Post;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,31 +17,39 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return view('welcome');
+});
 
-/*contoh menggunakan middleware di route yang sudah di'group'kan*/
-// Route::group(["middleware" => "authCheck"], function(){
-//     Route::get('/dashboard', function () {return view('layouts.dashboard');});
-//     Route::get('/dashboardd', function () {return view('layouts.dashboardd');});
-//     Route::get('/profile', function () {return view('layouts.profile');});
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-// });
 
-Route::get('/dashboard', function () {return view('layouts.dashboard');});
-Route::get('/dashboardd', function () {return view('layouts.dashboardd');});
-Route::get('/profile', function () {return view('layouts.profile');});
+
 
 Route::get('/', function () {return view('welcome');});
-Route::get('/posts/{id}/restore',[PostController::class, 'restore'])->name('posts.restore');
-Route::get('/posts/trash', [PostController::class, 'trashed'])->name('posts.trashed');
-/*contoh menggunakan middleware diroute tertentu*/
-// Route::resource('posts', PostController::class)->middleware('authCheck2');
-Route::resource('posts', PostController::class);
+
+Route::group(['middleware' => 'auth'], function(){/*Grouping route untuk dipasang auth */
+    Route::get('/posts/{id}/restore',[PostController::class, 'restore'])->name('posts.restore');
+    Route::get('/posts/trash', [PostController::class, 'trashed'])->name('posts.trashed');
+    /*contoh menggunakan middleware diroute tertentu*/
+    // Route::resource('posts', PostController::class)->middleware('authCheck2');
+    Route::resource('posts', PostController::class);
+    Route::delete('/posts/{id}/force-delete',[PostController::class, 'forceDelete'])->name('posts.force_delete');
+    Route::get('/unavailable', function(){
+        return view('layouts.unavailable');
+    })->name('unavailable');
+
+});
 
 
-Route::delete('/posts/{id}/force-delete',[PostController::class, 'forceDelete'])->name('posts.force_delete');
-Route::get('/unavailable', function(){
-    return view('layouts.unavailable');
-})->name('unavailable');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
 
 Route::get('contact', function(){
@@ -51,42 +58,11 @@ Route::get('contact', function(){
     return view('layouts.contact', compact('posts'));
 });
 
-Route::get('send-email', function () {
-    // Mail::raw('Pampam parepam parararampang papipipam', function ($message) {
-    //     $message->to('john@johndoe.com')->subject('noreply');
-    // });
-    Mail::send(new OrderShipped);
-    dd('success');
-});
-
-Route::get('get-session', function (Request $request) {
-    $data = session()->all();
-    // $data = session()->get('nama');
-
-    dd($data);
+Route::get('user-data', function () {
+    return Auth::user();
 
 });
 
-Route::get('save-session', function (Request $request) {
 
-    // $request->session()->put('nama','panjulll');
-    $request->session()->put(['nama'=>'panjulll', 'wilayah'=>'kreta' ]);
-    session(['kaiser'=>'lucretius']);
-    return redirect('get-session');
-});
-
-
-Route::get('delete-session', function (Request $request) {
-    // $request->session()->forget(['kaiser','wilayah']);
-    session()->flush();
-    return redirect('get-session');
-
-});
-
-Route::get('flash-session', function (Request $request) {
-
-    $request->session()->flash('Login', 'ora');
-
-    return redirect('get-session');
-
-});
+//di sini diletakkan semua file halaman login
+require __DIR__.'/auth.php';

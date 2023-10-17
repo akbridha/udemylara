@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 // use File;
 use Illuminate\Support\Facades\File;
 
@@ -24,7 +25,19 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::paginate(2);
+
+
+
+        // $posts = Post::paginate(2);
+
+
+
+        // menggunakan cache
+        // $posts = Cache::remember('posts', 60 , function(){ /*durasi penyimpanan dalam detik*/
+        // $posts = Cache::rememberForever('posts' , function(){ /*cache selamanya*/
+            $posts = Cache::remember('posts-page-'.request('page',1), 5 , function(){ /*untuk menangani cache dengan pagination*/
+            return Post::with('category')->paginate(3);
+        });
         return view('layouts.index', compact('posts'));
         //
     }

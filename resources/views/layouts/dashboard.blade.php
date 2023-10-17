@@ -1,7 +1,7 @@
-@extends('layouts.master')
+{{-- @extends('layouts.master')
 
-@section('content')
+@section('content') --}}
 
     <h2>  Dashbrod</h2>
-@endsection
+{{-- @endsection --}}
 

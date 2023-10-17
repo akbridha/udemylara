@@ -10,6 +10,7 @@
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-primary">
         <div class="container-fluid">
+
             <a class="navbar-brand" href="/get-session">Session</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -20,7 +21,10 @@
                         <a class="nav-link active" aria-current="page" href="/dashboard">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-disabled="true" href="/profile">Profile</a>
+                        <a class="nav-link" href="/profile">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/forget-cache">Hapus Cache</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('posts.index') }}">Post</a>
@@ -39,20 +43,32 @@
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item">
+                        <a href="/logout"class="btn-sm btn-danger" >Log Out</a>
+
+                    </li>
                 </ul>
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
+
+
+
+
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn-sm btn-danger">Log Out</button>
+            </form>
         </div>
-      </nav>
+    </nav>
 
 
-      <div class="container">
+    <div class="container">
         @yield('content')
 
-      </div>
+    </div>
 
 
 
