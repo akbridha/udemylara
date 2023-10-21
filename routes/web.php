@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Jobs\SendMail;
+use App\Mail\PostPublished;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -66,3 +69,11 @@ Route::get('user-data', function () {
 
 //di sini diletakkan semua file halaman login
 require __DIR__.'/auth.php';
+
+
+Route::get('send-mail', function () {
+
+    SendMail::dispatch();
+
+    dd('mail has been plantid');
+});
