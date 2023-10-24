@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Jobs\SendMail;
 use App\Mail\PostPublished;
 use App\Models\Post;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -86,3 +87,9 @@ Route::get('user-registered', function(){
     event(new UserRegistered($alamath));
     dd('Psean Trukrima');
 });
+
+Route::get('greeting/{locale}', function($locale){
+    App::setLocale($locale);
+    return view('greeting')
+    ;
+})->name('greeting');
