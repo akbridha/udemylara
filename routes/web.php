@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\UserRegistered;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Jobs\SendMail;
@@ -76,4 +77,12 @@ Route::get('send-mail', function () {
     SendMail::dispatch();
 
     dd('mail has been plantid');
+});
+
+
+Route::get('user-registered', function(){
+    $alamath = 'panjul@daw.com';
+
+    event(new UserRegistered($alamath));
+    dd('Psean Trukrima');
 });
