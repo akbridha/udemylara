@@ -23,6 +23,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('user/{id}/edit', function($id){
+    return $id;
+})->name('user.edit');
+
 Route::get('/', function () {
     return view('welcome');
 });

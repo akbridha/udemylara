@@ -22,7 +22,9 @@ class UsersDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'users.action')
+            // ->addColumn('action', 'users.action')
+            ->addColumn('action', function($query){
+                return '<a href ="'.route('user.edit',$query->id).'" class= "btn btn-success">Valid</a>';})
             ->setRowId('id');
     }
 
@@ -62,15 +64,16 @@ class UsersDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
+            // Column::computed('action')
+            //       ->exportable(false)
+            //       ->printable(false)
+            //       ->width(60)
+            //       ->addClass('text-center'),
             Column::make('id'),
             Column::make('name'),
             Column::make('created_at'),
             Column::make('updated_at'),
+            Column::make('action')
         ];
     }
 
