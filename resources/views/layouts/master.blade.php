@@ -33,8 +33,8 @@
                         <a class="nav-link" href="/contact">Contact</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="/send-email" role="button" data-bs-toggle="" aria-expanded="true">
-                            Gidewn
+                        <a class="nav-link dropdown-toggle" href="/gambar" role="button" data-bs-toggle="" aria-expanded="true">
+                            Gambar
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Action</a></li>

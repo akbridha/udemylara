@@ -2,6 +2,8 @@
 
 use App\DataTables\UsersDataTable;
 use App\Events\UserRegistered;
+use App\Helpers\ImageFilter;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Jobs\SendMail;
@@ -11,6 +13,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use Intervention\Image\ImageManagerStatic;
 
 /*
 |--------------------------------------------------------------------------
@@ -111,4 +114,17 @@ Route::get('greeting/{locale}', function($locale){
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+
+Route::get('/gambar', function(){
+
+    $gambar = ImageManagerStatic::make('IMG_0267.jpg');
+    // $gambar ->fit(600, 600);
+    // $gambar -> save('HasilEdit.jpg',80);
+    // $gambar->filter(new ImageFilter(100));
+    $gambar->filter(new ImageFilter());
+
+    return $gambar->response();
+    // return redirect()->Route('home');
+});
